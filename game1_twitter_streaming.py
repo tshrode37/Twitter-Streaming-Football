@@ -15,9 +15,9 @@ client = MongoClient()
 db = client['Superbowl_2021']
 coll = db['Superbowl_tweets']
 
-#Variables that contains the user credentials to access Twitter API 
+#Variables that contains the user credentials to access Twitter API (obtained from Twitter API)
 
-c_key = os.environ.get('tw_consumer_key')
+c_key = os.environ.get('tw_consumer_key') 
 c_sec = os.environ.get('tw_consumer_secret')
 atk = os.environ.get('tw_access_token')
 ats = os.environ.get('tw_access_token_secret')
@@ -45,7 +45,7 @@ class MyListener(StreamListener):
                     'Retweeted': retweeted,
                     'Hashtags': hashtags,
                     'Time Zone': user_tz,
-                    'Location': user_location}) #add collected data field to MongoDB
+                    'Location': user_location}) #add collected data fields to MongoDB
         return True
 
     def on_error(self, status):
