@@ -15,7 +15,7 @@ client = MongoClient()
 db = client['Superbowl_2021']
 coll = db['Superbowl_tweets']
 
-#Variables that contains the user credentials to access Twitter API 
+#Variables that contains the user credentials to access Twitter API (obtained from Twitter API)
 
 c_key = os.environ.get('tw_consumer_key')
 c_sec = os.environ.get('tw_consumer_secret')
