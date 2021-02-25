@@ -1,4 +1,4 @@
-# Sentiment analysis and text clustering football tweets obtained by live streaming twitter data
+# Sentiment analysis and clustering football tweets obtained by live streaming twitter data
 Data Science Practicum I Project - Using Sentiment Analysis and Clustering to Determine Superbowl Fan "Favorite"
 
 ## Summary
@@ -9,10 +9,10 @@ For this project, we will be creating a pipeline that live stream tweets with pa
 
 ### Data
 
-The data will be collected by creating a pipeline to live stream tweets that contain tag words relate to each team playing in the NFL Conference Championship game. For example, during the Kansas City vs Buffalo Bills game, the following tag words were used to collect tweets:
+The data will be collected by creating a pipeline to live stream tweets that contain tag words relate to each team playing in the NFL Conference Championship game. For example, during the Tampa Bay Buccaneers versus Green Bay Packers game, the following tag words were used to collect tweets:
 
   ```
-  "Josh Allen", "Patrick Mahomes", "Buffalo Bills", "Kansas City Chiefs", "Superbowl", "ChiefsKingdom", "ChiefsvsBills", "AFC Championship", "SuperbowlLV", "BillsMafia", "NFLPlayoffs"
+  "Tom Brady", "Aaron Rodgers", "Buccaneers", "GoPackGo", "TBvsGB", "Green Bay Packers", "Tampa Bay Buccaneers", "Superbowl",  "Bucs", "Packers", "NFC Championship", "SuperbowlLV", "NFLPlayoffs"
   ```
 These tag words were chosen based off a simple search on twitter, which helped in identifying the most popular tag words used for each team. The tag words for the post-game tweets were chosen after both championship games were completed. Ultimately, we were able to collect ~190,000 game tweets and ~80,000 post-game tweets.
 
@@ -55,11 +55,95 @@ Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this pro
 
 ### Step 1: Create Tweet Streaming Scripts
 
-The .py scripts `game1_twitter_streaming.py`, `game2_twitter_streaming.py`, and `postgame_twitter_stream.py` were created. 
+The .py scripts `game1_twitter_streaming.py`, `game2_twitter_streaming.py`, and `postgame_twitter_stream.py` were created. First, a connection to MongoDB needs to be established to store the collected data. 
+
+```python
+#create connection to MongoDB
+
+client = MongoClient()
+db = client['Superbowl_2021']
+coll = db['Superbowl_tweets']
+```
+
+Now, the credentials obtained from the Twitter API need to be entered and stored in variables to be used later. The `os` module to is used to access the Twitter API credentials from the environment variables.
+
+```python
+#create variables that contains the user credentials to access Twitter API 
+
+c_key = os.environ.get('tw_consumer_key')
+c_sec = os.environ.get('tw_consumer_secret')
+atk = os.environ.get('tw_access_token')
+ats = os.environ.get('tw_access_token_secret')
+```
+Next, create a class called `MyListener` that will listen for tweets from Tweepy's StreamListener.
+
+```python
+class MyListener(StreamListener)
+```
+
+Then, we create a user defined function that handles our data. Below, we parse a valid JSON string and convert it into a Python dictionary, which allows us to collect information such as the tweet, hashtags, date tweet was created, the username of tweet creator, whether the tweet was retweeted or not, user timezone, and user location. Finally, the collected information is inserted into MongoDB.
+
+```python
+   def on_data(self, data):
+        msg = json.loads(data) # Create a message from json file
+        if "text" in msg: #[5]
+            tweet = msg["text"]
+            hashtags = msg["entities"]["hashtags"] 
+            created = msg["created_at"]
+            username = msg["user"]["screen_name"]
+            retweeted = msg["retweeted"]
+            user_tz = msg["user"]["time_zone"]
+            user_location = msg["user"]["location"]
+    
+        coll.insert_one({'Date': created,
+                    'User': username,
+                    'Tweet': tweet,
+                    'Retweeted': retweeted,
+                    'Hashtags': hashtags,
+                    'Time Zone': user_tz,
+                    'Location': user_location}) #add collected data field to MongoDB
+        return True
+```
+
+We then create a second function to handles errors, which can arise due to Twitter's streaming API rate limits.
+
+```python
+def on_error(self, status):
+        print(status.text)
+        return True
+```
+
+Finally, we set up our authentication using our Twitter credentials defined above, and initialize our stream using the StreamListener class defined above. Using the stream, we specify the tags we want to use to filter tweets. 
+
+```python
+if __name__ == '__main__':    
+    listener = MyListener()
+    
+    auth = OAuthHandler(c_key, c_sec)
+    auth.set_access_token(atk, ats)
+    api = API(auth)
+
+    twitterstream = Stream(auth=api.auth, listener=listener, tweet_mode="extended") 
+    
+    game_1_tags = ["Tom Brady", "Aaron Rodgers", "Buccaneers", "GoPackGo",
+           "TBvsGB", "Green Bay Packers", "Tampa Bay Buccaneers", "Superbowl",
+           "Bucs", "Packers", "NFC Championship", "SuperbowlLV", "NFLPlayoffs"] #Green Bay Packers, Tampa Bay Buccaneers 
+
+    twitterstream.filter(track=game_1_tags, languages=["en"]) 
+```
+
+At this point, we have completed the authentication and can now live stream tweets. 
+
 
 ### Step 2: Live Stream Tweets
 
+The .py scripts can be run from your terminal using the command `<file_name>.py`. Ensure that you are using the proper working directory to run file. To stop the program, press `Ctrl-C`, or `Cmd-C`. 
 
+The .py scripts were ran as follows:
+
+1. `game1_twitter_streaming.py`: Tampa Bay Buccaneers vs Greenbay Packers; stream from beginning of game to end of Game 1 
+2. `game2_twitter_streaming.py`: Kansas City Chiefs vs Buffalo Bills; ; stream from beginning of game to end of Game 2 
+3. `postgame_twitter_stream.py`: Use tag words for Tampa Bay Buccaneers and Kansas City Chiefs (winner of Game 1 and Game 2); stream from end of Game 2 and end when appropriate number of tweets are collected
 
 ## Phase II - Sentiment Analysis
 
@@ -83,4 +167,7 @@ The .py scripts `game1_twitter_streaming.py`, `game2_twitter_streaming.py`, and 
 
 ## Resources
 1. https://docs.tweepy.org/en/v3.5.0/streaming_how_to.html
+2. https://gist.github.com/ctufts/e38e0588bf6d8f32e99d
+3. http://adilmoujahid.com/posts/2014/07/twitter-analytics/
+4. https://www.storybench.org/how-to-collect-tweets-from-the-twitter-streaming-api-using-python/
 
