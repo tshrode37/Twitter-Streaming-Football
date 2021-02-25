@@ -18,6 +18,7 @@ These tag words were chosen based off a simple search on twitter, which helped i
 
 ## Methodology
 
+Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this project. Anaconda allowed us to utilize Jupyter Notebooks, which used Python version 3.7.4. Jupyter was used to create the python scripts and analyze the data. The following packages were used in this project:
 
 ### Tools and Libraries
 
@@ -50,10 +51,30 @@ These tag words were chosen based off a simple search on twitter, which helped i
   - `from sklearn.cluster import DBSCAN`: Creates Density-Based Spatial Clustering of Applications with Noise clusters
   - `from sklearn.feature_extraction.text import TfidfVectorizer`: Create TD-IDF features 
 
+## Phase I - Data Collection
 
-## Phase I - Collect Data
+### Step 1: Create Tweet Streaming Scripts
+
+The .py scripts `game1_twitter_streaming.py`, `game2_twitter_streaming.py`, and `postgame_twitter_stream.py` were created. 
+
+### Step 2: Live Stream Tweets
+
+
 
 ## Phase II - Sentiment Analysis
+
+
+### Step 1: Clean Tweets
+
+
+### Step 2: Filter Tweets
+
+
+### Step 3: Sentiment Analysis
+
+
+### Step 4: Data Visualization
+
 
 ## Phase III - Text Clustering 
 
