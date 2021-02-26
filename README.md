@@ -3,7 +3,7 @@ Data Science Practicum I Project - Using Sentiment Analysis and Clustering to De
 
 ## Summary
 
-For this project, we will be creating a pipeline that live stream tweets with particular keywords relating to the teams that played in the NFL Conference Championships on 1/24/2021. The goal is to collect tweets during each NFL Conference Championship game (Kansas City vs Buffalo Bills, Tampa Bay Buccaneers vs Green Bay Packers) and after both  games have been completed. For this project, `game tweets` will refer to the tweets that were collected during each game, and `post-game tweets` will refer to the tweets collected after both games were completed Using this data, we seek to use sentiment analysis and text clustering to estimate the NFL team that is favored to win the Superbowl based on fans' analysis/comments/feelings. There are many aspects of sport games that cannot be captured by a box score such as a quarterback who can strategically mislead a defender to free up his receiver or a receiver who can look down-field and adjust his route accordingly. These are examples of nontraditional data points that currently cannot be accounted for in structured data. However, this can all be seen by coaches, scouts, fans, etc. and many of these analyses/observations can be found on social media platforms.
+For this project, we will be creating a pipeline that live stream tweets with particular keywords relating to the teams that played in the NFL Conference Championships on 1/24/2021. The goal is to collect tweets during each NFL Conference Championship game (Kansas City vs Buffalo Bills, Tampa Bay Buccaneers vs Green Bay Packers) and after both  games have been completed. For this project, *game tweets* will refer to the tweets that were collected during each game, and *post-game tweets* will refer to the tweets collected after both games were completed Using this data, we seek to use sentiment analysis and text clustering to estimate the NFL team that is favored to win the Superbowl based on fans' analysis/comments/feelings. There are many aspects of sport games that cannot be captured by a box score such as a quarterback who can strategically mislead a defender to free up his receiver or a receiver who can look down-field and adjust his route accordingly. These are examples of nontraditional data points that currently cannot be accounted for in structured data. However, this can all be seen by coaches, scouts, fans, etc. and many of these analyses/observations can be found on social media platforms.
 
 **ADD SUMMARY OF FINDINGS HERE**
 
@@ -145,14 +145,91 @@ The .py scripts were ran as follows:
 2. `game2_twitter_streaming.py`: Kansas City Chiefs vs Buffalo Bills; ; stream from beginning of game to end of Game 2 
 3. `postgame_twitter_stream.py`: Use tag words for Tampa Bay Buccaneers and Kansas City Chiefs (winner of Game 1 and Game 2); stream from end of Game 2 and end when appropriate number of tweets are collected
 
+To ensure that our data was written to MongoDB, we can use the commands in Jupyter Notebook:
+
+
+```python
+#check that data was written to MongoDB
+client = MongoClient()
+db = client['Superbowl_2021']
+tweets = db['Superbowl_tweets']
+
+pprint(tweets.find_one())
+```
+
+Using the `pandas` module, we can load the MongoDB data into Python and store the data in a pandas dataframe, as seen in the `game_tweets_df.jpg` file located in the Images file. 
+
+
 ## Phase II - Sentiment Analysis
 
-
+Polarity - a measure of the negativity, the neutralness, or the positivity of the text
 ### Step 1: Clean Tweets
+To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, removing punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
 
+
+```python
+def remove_emoji(string):
+    emoji_pattern = re.compile("["
+                           u"\U0001F600-\U0001F64F"  # emoticons
+                           u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                           u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                           u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                           u"\U00002702-\U000027B0"
+                           u"\U000024C2-\U0001F251"
+                           "]+", flags=re.UNICODE)
+    return emoji_pattern.sub(r'', string)
+```
+
+Then, we applied the `ReGex` module to further clean our tweets.
+
+```python
+no_html_tweets = no_emoji.apply(lambda x: re.sub('http://\S+', '', x)) #remove http://
+no_html_tweets = no_html_tweets.apply(lambda x: re.sub('https://\S+', '', x)) #remove https://
+no_html_tweets = no_html_tweets.apply(lambda x: re.sub('@\S+', '', x)) #remove @usernames
+no_html_tweets = no_html_tweets.apply(lambda x: re.sub('#\S+', '', x)) #remove #hashtags
+no_html_tweets = no_html_tweets.apply(lambda x: re.sub('\s\s+', ' ', x)) #remove extra whitespace
+no_html_tweets = no_html_tweets.apply(lambda x: re.sub('RT', '', x)) #Remove RT
+no_html_tweets = no_html_tweets.apply(lambda x: re.sub('/\S+', '', x)) #remove /
+```
+Refer to the `before_and_after_cleaning_tweets.jpg` file in the Images folder to see the tweets before and after using the techniques described above. The cleaned tweets were then added to our original dataframe and the clean tweets were then used to drop duplicated tweets. 
 
 ### Step 2: Filter Tweets
 
+For this project, not only did we perform sentiment analysis two different sets of data *game tweets* and *post game tweets*, we also subsetted each dataset into *game-like* tweets and *team* tweets.
+
+1. Game-like tweets: These include tweets pertaining to actual game activity
+    - For example: "Tom Brady finally puts the ball downfield and throws three straight incompletions."
+2. Team tweets: The tweets are separated using specified key words that match a tweet to a team
+    - For example (a Tampa Bay tweet): "Tom Brady is god.  Im a dummy" 
+
+Tag words used to subset our dataset into game-like tweets include:
+
+```
+"redzone", "ball", "incompletion", "interception", "throw", 
+        "catch", "downfield", "oline", "offensive", "defensive", 
+       "offense", "defense", "blocking", "block", "win", "lose", "sack", "superbowl",
+       "score", "home", "away", "goat", "1st", "2nd", "3rd", "4th", "down", "td", "int", "touchdown", 
+        "root", "stop", "pass", "rush", "play", "Tom Brady", "Patrick Mahomes", "Bucs", "Buccaneers", 
+          "Gronk", "Gronkowski", "Brady", "TB", "Antonio Brown", "Chiefs", "Kansas City",
+          "Travis Kelce", "Kelce", "Mahomes", "KC", "tackle", "offsides", "end zone", "block", "fair", "catch", 
+          "field goal", "fumble", "grounding", "neutral", "pocket", "safety", "turnover", "zone", "snap"
+```
+
+`multidict_to_df_gametweets.jpg` in the Images folder
+
+Tag words used to subset our dataset into Kansas City tweets include:
+
+```
+"Patrick Mahomes", "Chiefs", "Kansas City", "Travis Kelce", "Kelce", "Mahomes", "KC", 
+"Tyrann Mathieu", "Tyrann", "Mathieu", "Tyreek Hill"
+```
+
+Tag words used to subset our dataset into Tampa Bay tweets include:
+
+```
+"Tom Brady", "Bucs", "Buccaneers", "Gronk", "Gronkowski", "Brady", "TB", "Antonio Brown",
+             "Godwin"
+```
 
 ### Step 3: Sentiment Analysis
 
@@ -170,4 +247,6 @@ The .py scripts were ran as follows:
 2. https://gist.github.com/ctufts/e38e0588bf6d8f32e99d
 3. http://adilmoujahid.com/posts/2014/07/twitter-analytics/
 4. https://www.storybench.org/how-to-collect-tweets-from-the-twitter-streaming-api-using-python/
+5. Remove emoji's: https://gist.github.com/slowkow/7a7f61f495e3dbb7e3d767f97bd7304b 
+6. Reindex dataframe: https://stackoverflow.com/questions/28885073/reindexing-after-pandas-drop-duplicates
 
