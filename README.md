@@ -235,15 +235,81 @@ The data needed above can be obtained by using a `for` loop.
 
 ### Step 3: Sentiment Analysis
 
-Using the 
+The `textblob` module allows us to calculate polarity, subjectivity, and assessments.
+
+* Polarity is a float within the range [-1.0, 1.0]; where 1 means positive statement and -1 means a negative statement
+* Subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective; Subjective sentences generally refer to personal opinion, emotion or judgment whereas objective refers to factual information
+* Assessments is a list of polarity and subjectivity scores for the assessed tokens
+
+To create a dataframe that contains the above information, the function below was created. The function was then applied to our cleaned tweets (from Step 1 above) for our full dataset, the game-like tweets, Kansas City tweets, and Tampa Bay tweets. 
+
+```python
+def textblob_sentiments(text, sentiment_dict, keys_list, polarity_list, subj_list, assess_list):
+    
+# text is the tweets to be analyzed
+# sentiment_dict is an empty dict 
+# keys_list, polarity_list, subj_list, assess_list are empty lists
+
+    print("Adding sentiments tuple to dictionary...")
+    
+    start = time.time()
+    for r in range(0, len(text)):
+        sentiment_dict[text[r]] = textblob.TextBlob(text[r]).sentiment_assessments #calculate sentiment assessments and add them to empty dictionary (tweet:sentiment assessments tuple)
+    
+    end = time.time()
+    print('Process took', int(round(end - start)), 'seconds') #count number of seconds that it takes to process code above 
+    
+    print("Creating new dataframe...")
+    
+    for key, value in sentiment_dict.items():
+        keys_list.append(key) #get tweets
+        value_list = list(value) #get sentiment assessments in a list
+        polarity_list.append(value_list[0]) #get polarity scores
+        subj_list.append(value_list[1]) #get subjectivity scores
+        assess_list.append(value_list[2]) #get assessments 
+        
+    print("Last step...")
+    
+    new_df = pd.DataFrame(zip(text, polarity_list, subj_list, assess_list), columns=['Tweet', 'Polarity', 'Subjectivity','Assessments']) #create new dataframe using lists above
+    return(new_df)
+```
+
+As an example, to collect the sentiment assessments for our full dataset, we can use the code below:
+
+```python
+test_dict = {} #dictionary to calculate and contain sentment assessments
+keys = [] #get keys (tweets) from test_dict
+polarity = [] #get polarity scores
+subjectivity = [] #get subjectivity scores
+assessments = [] #get assessments
+
+assessments_df = textblob_sentiments(clean_tweets_df["Clean Tweets"], test_dict, keys, polarity, subjectivity, assessments) #apply function above
+
+assessments_df.head() #check to make sure data was collected correctly
+```
+
+
 
 ### Step 4: Data Visualization
 
+The polarity distribution plots for the dataset and the subsetted can be found in the Images folder:
+
+* `full_polarity.png`: Polarity distribution for full dataset
+* `game_polarity.png`: Polarity distribution for game-like data
+* `chiefs_polarity.png`: Polarity distribution for Kansas City data
+* `bucs_polarity.png`: Polarity distribution for Tampa Bay data
 
 ## Phase III - Text Clustering 
 
 
-## Conclusion
+### Step 1: Clean Text using NLP
+
+
+### Step 2: Data Visualization
+
+
+### Step 3: DBSCAN Clustering
+
 
 ## Resources
 1. https://docs.tweepy.org/en/v3.5.0/streaming_how_to.html
@@ -253,4 +319,4 @@ Using the
 5. Remove emoji's: https://gist.github.com/slowkow/7a7f61f495e3dbb7e3d767f97bd7304b 
 6. Reindex dataframe: https://stackoverflow.com/questions/28885073/reindexing-after-pandas-drop-duplicates
 7. Multidict: https://medium.com/analytics-vidhya/mapping-keys-to-multiple-values-in-a-dictionary-b5022de9dd0e
-
+8. Textblob: https://www.analyticsvidhya.com/blog/2018/02/natural-language-processing-for-beginners-using-textblob/
