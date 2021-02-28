@@ -342,7 +342,35 @@ def clean_text(docs):
 ### Step 2: Data Visualization
 
 
+Word clouds for the full dataset include:
+
+* `full_lowpolarity_wordcloud.png`
+* `full_toppolarity_wordcloud.png`
+* `full_wordcloud.png`: Word cloud for full cleaned tweets 
+
+Word clouds for the game-like data include:
+
+* `team_lowpolarity_wordcloud.png`
+* `team_toppolarity_wordcloud.png`
+* `team_wordcloud.png`
+
+Word clouds for the Kansas City tweets:
+
+* `chiefs_lowpolarity_wordcloud.png`
+* `chiefs_toppolarity_wordcloud.png`
+* `chiefs_wordcloud.png`
+
+Word clouds for the Tampa Bay tweets include: 
+
+* `bucs_lowpolarity_wordcloud.png`
+* `bucs_wordcloud.png`
+* `bucs_toppolarity_wordcloud.png`
+
+
+
 ### Step 3: DBSCAN Clustering
+
+
 
 
 ## Resources
