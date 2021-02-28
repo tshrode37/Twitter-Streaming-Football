@@ -305,6 +305,40 @@ The polarity distribution plots for the dataset and the subsetted can be found i
 ### Step 1: Clean Text using NLP
 
 
+```python
+# simple clean text function -- spacy lowercases, removes stopwords, lemmatizes
+    #function from Text Analytics Week 5 Assignment
+    
+def clean_text(docs):
+    # remove punctuation and numbers
+    # I do this before lemmatizing, so things like "act's" turn into 'act' instead of 'act s'
+    print('removing punctuation and digits')
+    table = str.maketrans({key: None for key in string.punctuation + string.digits})
+    clean_docs = [d.translate(table) for d in docs]
+    
+    print('spacy nlp...longest part')
+    nlp_docs = [nlp(d) for d in clean_docs]
+    
+    # keep the word if it's a pronoun, otherwise use the lemma
+    # otherwise spacy substitutes '-PRON-' for pronouns
+    print('getting lemmas')
+    lemmatized_docs = [[w.lemma_ if w.lemma_ != '-PRON-'
+                           else w.lower_
+                           for w in d]
+                      for d in nlp_docs]
+    
+    # remove stopwords
+    print('removing stopwords')
+    lemmatized_docs = [[lemma for lemma in doc if lemma not in stopwords] for doc in lemmatized_docs] 
+
+        #remove specific stop words
+    
+    # join tokens back into doc (string) because lemmatized_docs is a list
+    clean_docs = [' '.join(l) for l in lemmatized_docs] #join tweets in a string
+        
+    return clean_docs
+```
+
 ### Step 2: Data Visualization
 
 
