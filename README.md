@@ -137,7 +137,7 @@ At this point, we have completed the authentication and can now live stream twee
 
 ### Step 2: Live Stream Tweets
 
-The .py scripts can be run from your terminal using the command `<file_name>.py`. Ensure that you are using the proper working directory to run file. To stop the program, press `Ctrl-C`, or `Cmd-C`. 
+The .py scripts can be run from your terminal using the command `<file_name>.py`. Ensure that you are using the proper working directory to run file. To stop the program, press `Ctrl-C` in Windows. 
 
 The .py scripts were ran as follows:
 
@@ -145,8 +145,7 @@ The .py scripts were ran as follows:
 2. `game2_twitter_streaming.py`: Kansas City Chiefs vs Buffalo Bills; ; stream from beginning of game to end of Game 2 
 3. `postgame_twitter_stream.py`: Use tag words for Tampa Bay Buccaneers and Kansas City Chiefs (winner of Game 1 and Game 2); stream from end of Game 2 and end when appropriate number of tweets are collected
 
-To ensure that our data was written to MongoDB, we can use the commands in Jupyter Notebook:
-
+To ensure that our data was written to MongoDB, we need to open Jupyter Notebook using the command `jupyter notebook` in the Anaconda terminal. Then, we can use the following commands:
 
 ```python
 #check that data was written to MongoDB
@@ -163,8 +162,9 @@ Using the `pandas` module, we can load the MongoDB data into Python and store th
 ## Phase II - Sentiment Analysis
 
 Polarity - a measure of the negativity, the neutralness, or the positivity of the text
+
 ### Step 1: Clean Tweets
-To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, removing punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
+To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
 
 
 ```python
@@ -215,7 +215,7 @@ Tag words used to subset our dataset into game-like tweets include:
           "field goal", "fumble", "grounding", "neutral", "pocket", "safety", "turnover", "zone", "snap"
 ```
 
-`multidict_to_df_gametweets.jpg` in the Images folder
+To obtain these tweets, we created a `multidict`, which is a word used in Python to refer to a dictionary where mapping a single key to multiple values is possible. The resulting dataframe can be seen using the `multidict_to_df_gametweets.jpg` file in the Images folder.
 
 Tag words used to subset our dataset into Kansas City tweets include:
 
@@ -231,8 +231,11 @@ Tag words used to subset our dataset into Tampa Bay tweets include:
              "Godwin"
 ```
 
+The data needed above can be obtained by using a `for` loop.
+
 ### Step 3: Sentiment Analysis
 
+Using the 
 
 ### Step 4: Data Visualization
 
@@ -249,4 +252,5 @@ Tag words used to subset our dataset into Tampa Bay tweets include:
 4. https://www.storybench.org/how-to-collect-tweets-from-the-twitter-streaming-api-using-python/
 5. Remove emoji's: https://gist.github.com/slowkow/7a7f61f495e3dbb7e3d767f97bd7304b 
 6. Reindex dataframe: https://stackoverflow.com/questions/28885073/reindexing-after-pandas-drop-duplicates
+7. Multidict: https://medium.com/analytics-vidhya/mapping-keys-to-multiple-values-in-a-dictionary-b5022de9dd0e
 
