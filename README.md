@@ -14,7 +14,7 @@ The data will be collected by creating a pipeline to live stream tweets that con
   ```
   "Tom Brady", "Aaron Rodgers", "Buccaneers", "GoPackGo", "TBvsGB", "Green Bay Packers", "Tampa Bay Buccaneers", "Superbowl",  "Bucs", "Packers", "NFC Championship", "SuperbowlLV", "NFLPlayoffs"
   ```
-These tag words were chosen based off a simple search on twitter, which helped in identifying the most popular tag words used for each team. The tag words for the post-game tweets were chosen after both championship games were completed. Ultimately, we were able to collect ~190,000 game tweets and ~80,000 post-game tweets.
+These tag words were chosen based off a simple search on twitter, which helped in identifying the most popular tag words used for each team. The tag words for the post-game tweets were chosen after both championship games were completed. Ultimately, we were able to collect ~190,000 game tweets and ~80,000 post-game tweets. 
 
 ## Methodology
 
@@ -164,7 +164,8 @@ Using the `pandas` module, we can load the MongoDB data into Python and store th
 Polarity - a measure of the negativity, the neutralness, or the positivity of the text
 
 ### Step 1: Clean Tweets
-To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
+
+The data collected for the game tweets and the post-game tweets were loaded into Jupyter Notebook directly from MongoDB, but can also be loaded from the `superbowl_2021_post_game_tweets.csv` and `superbowl_2021_game_tweets` files. To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
 
 
 ```python
@@ -300,8 +301,12 @@ The polarity distribution plots for the dataset and the subsetted can be found i
 
 ### Step 1: Clean Text using NLP
 
+Using the Natural Language Processing module `spaCy`, we can further clean our tweets by lowercasing words, removing stopwords, lemmatizing, and removing punctuation and digits. This can be done by applying a previously created function used in the Week 5 Assignment for MSDS 682: Text Analytics.
 
 ```python
+nlp = spacy.load('en_core_web_lg')
+stopwords = nltk.corpus.stopwords.words('english')
+
 # simple clean text function -- spacy lowercases, removes stopwords, lemmatizes
     #function from Text Analytics Week 5 Assignment
     
@@ -334,34 +339,39 @@ def clean_text(docs):
         
     return clean_docs
 ```
+This function was applied to the full dataset, game-like tweets, Kansas City, and Tampa Bay tweets.
 
 ### Step 2: Data Visualization
 
+Data visualization for the portion of the project included word clouds, which allow us to represent our text data in which the size of each word indicates its frequency or importance. For each sets of data, three word clouds were created:
 
-Word clouds for the full dataset include:
+1. Full cleaned tweets
+2. Tweets with a polarity of 0.01 or greater
+3. Tweets with a polarity of -0.01 or less
 
-* `full_lowpolarity_wordcloud.png`
+These visualization can be found in the Images folder. Word clouds for the full dataset include:
+
+* `full_wordcloud.png`
 * `full_toppolarity_wordcloud.png`
-* `full_wordcloud.png`: Word cloud for full cleaned tweets 
+* `full_lowpolarity_wordcloud.png`
 
 Word clouds for the game-like data include:
 
-* `team_lowpolarity_wordcloud.png`
-* `team_toppolarity_wordcloud.png`
 * `team_wordcloud.png`
+* `team_toppolarity_wordcloud.png`
+* `team_lowpolarity_wordcloud.png`
 
 Word clouds for the Kansas City tweets:
 
-* `chiefs_lowpolarity_wordcloud.png`
-* `chiefs_toppolarity_wordcloud.png`
 * `chiefs_wordcloud.png`
+* `chiefs_toppolarity_wordcloud.png`
+* `chiefs_lowpolarity_wordcloud.png`
 
 Word clouds for the Tampa Bay tweets include: 
 
-* `bucs_lowpolarity_wordcloud.png`
 * `bucs_wordcloud.png`
 * `bucs_toppolarity_wordcloud.png`
-
+* `bucs_lowpolarity_wordcloud.png`
 
 
 ### Step 3: DBSCAN Clustering
@@ -370,11 +380,16 @@ Word clouds for the Tampa Bay tweets include:
 
 
 ## Resources
-1. https://docs.tweepy.org/en/v3.5.0/streaming_how_to.html
-2. https://gist.github.com/ctufts/e38e0588bf6d8f32e99d
-3. http://adilmoujahid.com/posts/2014/07/twitter-analytics/
-4. https://www.storybench.org/how-to-collect-tweets-from-the-twitter-streaming-api-using-python/
+1. Handling streaming errors: https://docs.tweepy.org/en/v3.5.0/streaming_how_to.html
+2. Collect desired data fields: https://gist.github.com/ctufts/e38e0588bf6d8f32e99d
+3. Running twitter stream in Terminal: http://adilmoujahid.com/posts/2014/07/twitter-analytics/
+4. Initialize Tweepy Stream: https://www.storybench.org/how-to-collect-tweets-from-the-twitter-streaming-api-using-python/
 5. Remove emoji's: https://gist.github.com/slowkow/7a7f61f495e3dbb7e3d767f97bd7304b 
 6. Reindex dataframe: https://stackoverflow.com/questions/28885073/reindexing-after-pandas-drop-duplicates
 7. Multidict: https://medium.com/analytics-vidhya/mapping-keys-to-multiple-values-in-a-dictionary-b5022de9dd0e
 8. Textblob: https://www.analyticsvidhya.com/blog/2018/02/natural-language-processing-for-beginners-using-textblob/
+9. spaCy: https://spacy.io/
+10. Word cloud: https://www.geeksforgeeks.org/generating-word-cloud-python/
+11. DBSCAN model: https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html?highlight=dbscan
+12. Estimate clusters and noise points: https://www.machinecurve.com/index.php/2020/12/09/performing-dbscan-clustering-with-python-and-scikit-learn/
+13. Silhouette score: https://shritam.medium.com/how-dbscan-algorithm-works-2b5bef80fb3
