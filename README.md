@@ -205,14 +205,12 @@ For this project, not only did we perform sentiment analysis two different sets 
 Tag words used to subset our dataset into game-like tweets include:
 
 ```
-"redzone", "ball", "incompletion", "interception", "throw", 
-        "catch", "downfield", "oline", "offensive", "defensive", 
-       "offense", "defense", "blocking", "block", "win", "lose", "sack", "superbowl",
-       "score", "home", "away", "goat", "1st", "2nd", "3rd", "4th", "down", "td", "int", "touchdown", 
-        "root", "stop", "pass", "rush", "play", "Tom Brady", "Patrick Mahomes", "Bucs", "Buccaneers", 
-          "Gronk", "Gronkowski", "Brady", "TB", "Antonio Brown", "Chiefs", "Kansas City",
-          "Travis Kelce", "Kelce", "Mahomes", "KC", "tackle", "offsides", "end zone", "block", "fair", "catch", 
-          "field goal", "fumble", "grounding", "neutral", "pocket", "safety", "turnover", "zone", "snap"
+"redzone", "ball", "incompletion", "interception", "throw", "catch", "downfield", "oline", "offensive", "defensive", 
+"offense", "defense", "blocking", "block", "win", "lose", "sack", "superbowl", "score", "home", "away", "goat", 
+"1st", "2nd", "3rd", "4th", "down", "td", "int", "touchdown", "root", "stop", "pass", "rush", "play", "Tom Brady", 
+"Patrick Mahomes", "Bucs", "Buccaneers", "Gronk", "Gronkowski", "Brady", "TB", "Antonio Brown", "Chiefs", "Kansas City",
+Travis Kelce", "Kelce", "Mahomes", "KC", "tackle", offsides", "end zone", "block", "fair", "catch", "field goal",
+"fumble", "grounding", "neutral", "pocket", "safety", "turnover", "zone", "snap"
 ```
 
 To obtain these tweets, we created a `multidict`, which is a word used in Python to refer to a dictionary where mapping a single key to multiple values is possible. The resulting dataframe can be seen using the `multidict_to_df_gametweets.jpg` file in the Images folder.
@@ -220,15 +218,13 @@ To obtain these tweets, we created a `multidict`, which is a word used in Python
 Tag words used to subset our dataset into Kansas City tweets include:
 
 ```
-"Patrick Mahomes", "Chiefs", "Kansas City", "Travis Kelce", "Kelce", "Mahomes", "KC", 
-"Tyrann Mathieu", "Tyrann", "Mathieu", "Tyreek Hill"
+"Patrick Mahomes", "Chiefs", "Kansas City", "Travis Kelce", "Kelce", "Mahomes", "KC", "Tyrann Mathieu", "Tyrann", "Mathieu", "Tyreek Hill"
 ```
 
 Tag words used to subset our dataset into Tampa Bay tweets include:
 
 ```
-"Tom Brady", "Bucs", "Buccaneers", "Gronk", "Gronkowski", "Brady", "TB", "Antonio Brown",
-             "Godwin"
+"Tom Brady", "Bucs", "Buccaneers", "Gronk", "Gronkowski", "Brady", "TB", "Antonio Brown","Godwin"
 ```
 
 The data needed above can be obtained by using a `for` loop.
