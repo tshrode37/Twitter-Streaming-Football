@@ -7,6 +7,8 @@ For this project, we will be creating a pipeline that live stream tweets with pa
 
 **ADD SUMMARY OF FINDINGS HERE**
 
+By live streaming tweets containing particular tag words, we were able to collect 270,988 total tweets. 
+
 ### Data
 
 The data will be collected by creating a pipeline to live stream tweets that contain tag words relate to each team playing in the NFL Conference Championship game. For example, during the Tampa Bay Buccaneers versus Green Bay Packers game, the following tag words were used to collect tweets:
@@ -404,18 +406,56 @@ The parameters used in our model above include:
 
 While there are other parameters than can be included in the model, the three mentioned above are the most important. 
 
+```python
+cluster_tweets = [] #tokenize words in each cluster and compute the counts for each token 
+
+for i in range(0, no_clusters):
+    cluster_tweets.append(nltk.FreqDist(nltk.tokenize.word_tokenize(' '.join(np.array(clean_tweets)[labels == i]))))
+
+for i in range(0, len(cluster_tweets)):
+    print('Cluster', i+1,'-', cluster_tweets[i].most_common(10), '\n') #most common words in each cluster
+    
+```
+
+
+## For the Future
+
+Clustering can be a powerful tool, and if time allowed, further analysis and parameter tuning would have been included. Now, hyperparameter tuning is not available for DBSCAN clustering. Thus, we can use a loop to check different values for `eps` and `minpts` using the function below:
+
+```python
+eps = [0.2, 0.5, 0.75, 1.00]
+minpts = [20, 25, 30, 40]
+
+for x in eps:
+    for y in minpts:
+        model = DBSCAN(eps=x, min_samples=y, n_jobs= -1)
+        model.fit(features)
+        labels = model.labels_
+        no_clusters = len(np.unique(labels)) #number of unique labels
+        no_noise = np.sum(np.array(labels) == -1, axis=0)
+        print('Epsilon (eps): %0.1f' % x)
+        print('Minimum samples (minPts): %d' % y)
+        print('Estimated no. of clusters: %d' % no_clusters)
+        print('Estimated no. of noise points: %d' % no_noise)
+        print("Silhouette Coefficient: %0.3f" % metrics.silhouette_score(features, labels))
+        print('\n')
+```
+It should be noted that clustering may take longer for larger sized features. Also, with more time, scatterplots of the DBSCAN clusters would have been included. Finally, with more tweaking, more text cleaning could be perfomered to remove more of the emoji's tweets and "correct" misspelled words. With these changes, we may obtain a better representation of clusters within our data.  
+
 ## Resources
 1. Handling streaming errors: https://docs.tweepy.org/en/v3.5.0/streaming_how_to.html
 2. Collect desired data fields: https://gist.github.com/ctufts/e38e0588bf6d8f32e99d
 3. Running twitter stream in Terminal: http://adilmoujahid.com/posts/2014/07/twitter-analytics/
 4. Initialize Tweepy Stream: https://www.storybench.org/how-to-collect-tweets-from-the-twitter-streaming-api-using-python/
-5. Remove emoji's: https://gist.github.com/slowkow/7a7f61f495e3dbb7e3d767f97bd7304b 
-6. Reindex dataframe: https://stackoverflow.com/questions/28885073/reindexing-after-pandas-drop-duplicates
-7. Multidict: https://medium.com/analytics-vidhya/mapping-keys-to-multiple-values-in-a-dictionary-b5022de9dd0e
-8. Textblob: https://www.analyticsvidhya.com/blog/2018/02/natural-language-processing-for-beginners-using-textblob/
-9. spaCy: https://spacy.io/
-10. Word cloud: https://www.geeksforgeeks.org/generating-word-cloud-python/
-11. DBSCAN model: https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html?highlight=dbscan
-12. Estimate clusters and noise points: https://www.machinecurve.com/index.php/2020/12/09/performing-dbscan-clustering-with-python-and-scikit-learn/
-13. Silhouette score: https://shritam.medium.com/how-dbscan-algorithm-works-2b5bef80fb3
-14. TF-IDF: https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+5. Import data from MongoDB: https://stackoverflow.com/questions/16249736/how-to-import-data-from-mongodb-to-pandas
+6. Remove emoji's: https://gist.github.com/slowkow/7a7f61f495e3dbb7e3d767f97bd7304b 
+7. Reindex dataframe: https://stackoverflow.com/questions/28885073/reindexing-after-pandas-drop-duplicates
+8. Multidict: https://medium.com/analytics-vidhya/mapping-keys-to-multiple-values-in-a-dictionary-b5022de9dd0e
+9. Dictionary to Dataframe: https://datatofish.com/dictionary-to-dataframe/
+10. Textblob: https://www.analyticsvidhya.com/blog/2018/02/natural-language-processing-for-beginners-using-textblob/
+11. spaCy: https://spacy.io/
+12. Word cloud: https://www.geeksforgeeks.org/generating-word-cloud-python/
+13. DBSCAN model: https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html?highlight=dbscan
+14. Estimate clusters and noise points: https://www.machinecurve.com/index.php/2020/12/09/performing-dbscan-clustering-with-python-and-scikit-learn/
+15. Silhouette score: https://shritam.medium.com/how-dbscan-algorithm-works-2b5bef80fb3
+16. TF-IDF: https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
