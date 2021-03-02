@@ -7,7 +7,7 @@ For this project, we will be creating a pipeline that live stream tweets with pa
 
 **ADD SUMMARY OF FINDINGS HERE**
 
-By live streaming tweets containing particular tag words, we were able to collect 270,988 total tweets. 
+By live streaming tweets containing particular tag words, we were able to collect 270,988 total tweets, which includes duplicate tweets. After removing duplicated tweets, the resulting number of tweets is 155,943.
 
 ### Data
 
