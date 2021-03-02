@@ -50,6 +50,7 @@ Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this pro
   - `import numpy as np`: Handles large, multi-dimensional arrays and matrices
   - `from sklearn.cluster import DBSCAN`: Creates Density-Based Spatial Clustering of Applications with Noise clusters
   - `from sklearn.feature_extraction.text import TfidfVectorizer`: Create TD-IDF features 
+  - `from sklearn import metrics`: Clustering performance metrics
 
 ## Phase I - Data Collection
 
@@ -156,7 +157,7 @@ tweets = db['Superbowl_tweets']
 pprint(tweets.find_one())
 ```
 
-Using the `pandas` module, we can load the MongoDB data into Python and store the data in a pandas dataframe, as seen in the `game_tweets_df.jpg` file located in the Images file. 
+Using the `pandas` module, we can load the MongoDB data into Python and store the data in a pandas dataframe, as seen in the `game_tweets_df.jpg` file located in the Images folder. 
 
 
 ## Phase II - Sentiment Analysis
@@ -376,8 +377,32 @@ Word clouds for the Tampa Bay tweets include:
 
 ### Step 3: DBSCAN Clustering
 
+Clustering text documents are used to find commonalities or themes in our text. Using our clean tweets created above, we can import `TfidfVectorizer from sklearn` to convert the collection of raw documents to a matrix of TF-IDF features. After we import this module, we can create our vectorizer and then we can use the vectorizer to fit and transform our cleaned tweets. We will use the argument `min_df=10`so that we ignore terms that have a document frequency lower than 10.
 
+```python
+vectorizer = TfidfVectorizer(min_df=10) #min number of tweets (min doc freq)
+features = vectorizer.fit_transform(clean_tweets) #cleaned tweets
+type(features) 
+features.shape #check dimensions of features
 
+features = features.todense() #convert matrix to numpy dense matrix
+```
+
+Now that we have our features, we can create our DBSCAN model and fit the model. 
+
+```python
+model = DBSCAN(eps=0.5, min_samples=40, n_jobs= -1) # create a model
+model.fit(features) # fit model
+labels = model.labels_ # get model labels
+```
+
+The parameters used in our model above include:
+
+1. `eps`: Epsilon; The maximum distance between two samples for one to be considered as in the neighborhood of the other
+2. `min_samples`: Minimum number of Samples; The number of samples (or total weight) in a neighborhood for a point to be considered as a core point. This includes the point itself
+3. `n_jobs`: The number of parallel jobs to run. None means 1 and -1 means using all processors
+
+While there are other parameters than can be included in the model, the three mentioned above are the most important. 
 
 ## Resources
 1. Handling streaming errors: https://docs.tweepy.org/en/v3.5.0/streaming_how_to.html
@@ -393,3 +418,4 @@ Word clouds for the Tampa Bay tweets include:
 11. DBSCAN model: https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html?highlight=dbscan
 12. Estimate clusters and noise points: https://www.machinecurve.com/index.php/2020/12/09/performing-dbscan-clustering-with-python-and-scikit-learn/
 13. Silhouette score: https://shritam.medium.com/how-dbscan-algorithm-works-2b5bef80fb3
+14. TF-IDF: https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
