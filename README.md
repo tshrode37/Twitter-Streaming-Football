@@ -17,7 +17,7 @@ These tag words were chosen based off a simple search on twitter, which helped i
 
 ## Methodology
 
-Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this project. Anaconda allowed us to utilize Jupyter Notebooks, which used Python version 3.7.4. Jupyter was used to create the python scripts and analyze the data. The following packages were used in this project:
+Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this project. Anaconda allowed us to utilize Jupyter Notebooks, which used Python version 3.7.4. Jupyter was used to help create the python scripts and analyze the data. The following packages were used in this project:
 
 ### Tools and Libraries
 
@@ -55,7 +55,7 @@ Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this pro
 
 ### Step 1: Create Tweet Streaming Scripts
 
-The .py scripts `game1_twitter_streaming.py`, `game2_twitter_streaming.py`, and `postgame_twitter_stream.py` were created. First, a connection to MongoDB needs to be established to store the collected data. 
+The .py scripts `game1_twitter_streaming.py`, `game2_twitter_streaming.py`, and `postgame_twitter_stream.py` were created. To create the scripts, the first step is to establish a connection to MongoDB to store the collected data. 
 
 ```python
 #create connection to MongoDB
