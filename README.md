@@ -24,7 +24,7 @@ Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this pro
 - Tweet Streaming in Python
   - `import os`: Allows Python to obtain API credentials from operating system
   - `import tweepy`: Access Twitter API
-  - `from tweepy import OAuthHandler`: Create OAuthHandler instance for authenticatation of API credentials
+  - `from tweepy import OAuthHandler`: Create OAuthHandler instance for authentication of API credentials
   - `from tweepy import Stream`: Create Stream object
   - `from tweepy import StreamListener`: Create StreamListener class that listens to tweets
   - `from tweepy import API`: Class that creates a wrapper for the API provided by Twitter
@@ -45,7 +45,7 @@ Anaconda version 4.8.3 and MongoDB 4.2.3 Community was used to complete this pro
   - `from wordcloud import WordCloud`: Creates Word Cloud image
   - `import seaborn as sns`: Generates bar plots
   - `import nltk`: Load nltk's English stopword list
-  - `from nltk import FreqDist`: Count top frequent occuring words
+  - `from nltk import FreqDist`: Count top frequent occurring words
   - `import numpy as np`: Handles large, multi-dimensional arrays and matrices
   - `from sklearn.cluster import DBSCAN`: Creates Density-Based Spatial Clustering of Applications with Noise clusters
   - `from sklearn.feature_extraction.text import TfidfVectorizer`: Create TD-IDF features 
@@ -156,7 +156,7 @@ tweets = db['Superbowl_tweets']
 pprint(tweets.find_one())
 ```
 
-Using the `pandas` module, we can load the MongoDB data into Python and store the data in a pandas dataframe, as seen in the `game_tweets_df.jpg` file located in the Images folder. 
+Using the `pandas` module, we can load the MongoDB data into Python and store the data in a pandas dataframe, as seen in the `game_tweets_df.jpg` file located in the Images folder. We can also open MongoDB and view our data, as seen in `mongodb_superbowl_tweets.jpg`
 
 
 ## Phase II - Sentiment Analysis
@@ -357,9 +357,9 @@ These visualization can be found in the Images folder. Word clouds for the full 
 
 Word clouds for the game-like data include:
 
-* `team_wordcloud.png`
-* `team_toppolarity_wordcloud.png`
-* `team_lowpolarity_wordcloud.png`
+* `game_wordcloud.png`
+* `game_toppolarity_wordcloud.png`
+* `game_lowpolarity_wordcloud.png`
 
 Word clouds for the Kansas City tweets:
 
@@ -418,30 +418,30 @@ for i in range(0, len(cluster_tweets)):
 
 By live streaming tweets containing particular tag words, we were able to collect 270,988 total tweets combined between the *game tweets* and *postgame tweets*, which includes duplicate tweets. After removing duplicated tweets, the resulting total number of tweets is 155,943 combined between the *game tweets* and *postgame tweets*.
 
-The results from the *game tweets* data:
+The results from the *game tweets* data, excluding duplicated tweets:
 
 |       | Full Dataset  | Game-Like Tweets|   Kansas City Tweets   | Tampa Bay Tweets |
 |  :---  |       :---:     |     :---:         |         :---:            |      :---:         |
-|   Number of Tweets    |    125,772  |      63,598     |       13,463     |       21,022    |
-|  Average Overall Sentiment |            |             |                  |             |
-|  Number of POS, NEUTRAL, NEG |            |              |                     |             |
-| Number of Clusters  |            |              |               NA   |         NA      |
-| Number of Outliers  |            |             |               NA   |         NA      |
-|  Silhouette Score |            |              |               NA   |         NA      |
+|   Number of Tweets    |    125772  |      63598     |       13463     |       21022    |
+|  Average Overall Sentiment |      0.06      |      0.08       |        0.12          |      0.08       |
+|  Number of POS/NEUTRAL/NEG |      10520/110917/4335      |       6019/55687/1892       |       1358/11791/314         |     1796/18596/630        |
+| Number of Clusters  |    36        |       9       |               NA   |         NA      |
+| Number of Outliers  |    121135        |      63032       |               NA   |         NA      |
+|  Silhouette Score |      -0.257      |        -0.067      |               NA   |         NA      |
 
 
 Refer to `Shrode_Practicum_GameTweets.ipynb` for more information.
 
-The results from the *postgame tweets* data:
+The results from the *postgame tweets* data, excluding duplicated tweets:
 
 |       | Full Dataset  | Game-Like Tweets|   Kansas City Tweets   | Tampa Bay Tweets |
 |  :---  |       :---:     |     :---:         |         :---:            |      :---:         |
-|   Number of Tweets    |    125,772  |      63,598     |       13,463     |       21,022    |
-|  Average Overall Sentiment |            |             |                  |             |
-|  Number of POS, NEUTRAL, NEG |            |              |                     |             |
-| Number of Clusters  |            |              |               NA   |         NA      |
-| Number of Outliers  |            |             |               NA   |         NA      |
-|  Silhouette Score |            |              |               NA   |         NA      |
+|   Number of Tweets    |    30171  |      17600     |       5136     |       9422    |
+|  Average Overall Sentiment |      0.11      |      0.13       |          0.12         |      0.13       |
+|  Number of POS, NEUTRAL, NEG |     3004/26364/803       |        1890/15270/440      |        498/4531/107            |     951/8208/263        |
+| Number of Clusters  |     9       |         3     |               NA   |         NA      |
+| Number of Outliers  |      29262      |     17428        |               NA   |         NA      |
+|  Silhouette Score |       -0.253     |         -0.041     |               NA   |         NA      |
 
 Refer to `Shrode_Practicum_PostGameTweets.ipynb` for more information.
 
