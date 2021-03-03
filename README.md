@@ -420,7 +420,7 @@ By live streaming tweets containing particular tag words, we were able to collec
 
 The results from the *game tweets* data, excluding duplicated tweets:
 
-|       | Full Dataset  | Game-Like Tweets|   Kansas City Tweets   | Tampa Bay Tweets |
+|       | Full Dataset  | Game-Like Dataset|   Kansas City Dataset   | Tampa Bay Dataset |
 |  :---  |       :---:     |     :---:         |         :---:            |      :---:         |
 |   Number of Tweets    |    125772  |      63598     |       13463     |       21022    |
 |  Average Overall Sentiment |      0.06      |      0.08       |        0.12          |      0.08       |
@@ -429,12 +429,28 @@ The results from the *game tweets* data, excluding duplicated tweets:
 | Number of Outliers  |    121135        |      63032       |               NA   |         NA      |
 |  Silhouette Score |      -0.257      |        -0.067      |               NA   |         NA      |
 
+Reviewing the table above, the average polarity score for the Kansas City tweets is greater than Tampa Bay, which suggests that fans favorited Kansas City to win the Superbowl. After further analysis of frequent occurring words for the positive and negative tweets in each of our subsets, we find:
 
-Refer to `Shrode_Practicum_GameTweets.ipynb` for more information.
+1. Full Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
+  - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+2. Game-Like Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
+  - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+3. Kansas City Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
+  - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
+4. Tampa Bay Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
+  - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
+
+These finding suggest that fans favorites the Tampa Bay Buccaneers and the Kansas City Chiefs to play in the Superbowl, and wanted Tampa Bay to win. Refer to `Shrode_Practicum_GameTweets.ipynb` for more information.
 
 The results from the *postgame tweets* data, excluding duplicated tweets:
 
-|       | Full Dataset  | Game-Like Tweets|   Kansas City Tweets   | Tampa Bay Tweets |
+|       | Full Dataset  | Game-Like Dataset|   Kansas City Dataset   | Tampa Bay Dataset |
 |  :---  |       :---:     |     :---:         |         :---:            |      :---:         |
 |   Number of Tweets    |    30171  |      17600     |       5136     |       9422    |
 |  Average Overall Sentiment |      0.11      |      0.13       |          0.12         |      0.13       |
@@ -443,7 +459,25 @@ The results from the *postgame tweets* data, excluding duplicated tweets:
 | Number of Outliers  |      29262      |     17428        |               NA   |         NA      |
 |  Silhouette Score |       -0.253     |         -0.041     |               NA   |         NA      |
 
-Refer to `Shrode_Practicum_PostGameTweets.ipynb` for more information.
+Reviewing the table above, the average polarity score for the Kansas City tweets is less than Tampa Bay, which suggests that fans favorited Tampa Bay to win the Superbowl. After further analysis of frequent occurring words for the positive and negative tweets in each of our subsets, we find:
+
+1. Full Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
+  - The most frequent terms that arise for negative tweets include terms relating to the Tampa Bay Buccaneers
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+2. Game-Like Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers and the Kansas City Chiefs
+  - The most frequent terms that arise for negative tweets include terms relating to the Kansas City Chiefs
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+3. Kansas City Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers and the Kansas City Chiefs
+  - The most frequent terms that arise for negative tweets include terms relating to the Kansas City Chiefs
+4. Tampa Bay Dataset
+  - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
+  - The most frequent terms that arise for negative tweets include terms relating to the Tampa Bay Buccaneers
+
+
+These finding suggest that fans favorites the Tampa Bay Buccaneers and the Kansas City Chiefs to play in the Superbowl, and wanted Tampa Bay to win. Refer to `Shrode_Practicum_PostGameTweets.ipynb` for more information.
 
 ## For the Future
 
@@ -467,7 +501,7 @@ for x in eps:
         print("Silhouette Coefficient: %0.3f" % metrics.silhouette_score(features, labels))
         print('\n')
 ```
-It should be noted that clustering may take longer for larger sized features. Also, with more time, scatterplots of the DBSCAN clusters would have been included. Finally, with more tweaking, more text cleaning could be perfomered to remove more of the emoji's tweets and "correct" misspelled words. With these changes, we may obtain a better representation of clusters within our data.  
+It should be noted that clustering may take longer for large amounts of features. Also, with more time, scatterplots of the DBSCAN clusters would have been included. Finally, with more tweaking, more text cleaning could be perfomered to remove more of the emoji's tweets and "correct" misspelled words. With these changes, we may obtain a better representation of clusters within our data.  
 
 ## Resources
 1. Handling streaming errors: https://docs.tweepy.org/en/v3.5.0/streaming_how_to.html
