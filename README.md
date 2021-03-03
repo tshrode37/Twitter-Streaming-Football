@@ -3,11 +3,8 @@ Data Science Practicum I Project - Using Sentiment Analysis and Clustering to De
 
 ## Summary
 
-For this project, we will be creating a pipeline that live stream tweets with particular keywords relating to the teams that played in the NFL Conference Championships on 1/24/2021. The goal is to collect tweets during each NFL Conference Championship game (Kansas City vs Buffalo Bills, Tampa Bay Buccaneers vs Green Bay Packers) and after both  games have been completed. For this project, *game tweets* will refer to the tweets that were collected during each game, and *post-game tweets* will refer to the tweets collected after both games were completed Using this data, we seek to use sentiment analysis and text clustering to estimate the NFL team that is favored to win the Superbowl based on fans' analysis/comments/feelings. There are many aspects of sport games that cannot be captured by a box score such as a quarterback who can strategically mislead a defender to free up his receiver or a receiver who can look down-field and adjust his route accordingly. These are examples of nontraditional data points that currently cannot be accounted for in structured data. However, this can all be seen by coaches, scouts, fans, etc. and many of these analyses/observations can be found on social media platforms.
+For this project, we will be creating a pipeline that live stream tweets with particular keywords relating to the teams that played in the NFL Conference Championships on January 24, 2021. The goal is to collect tweets during each NFL Conference Championship game (Kansas City vs Buffalo Bills, Tampa Bay Buccaneers vs Green Bay Packers) and after both  games have been completed. For this project, *game tweets* will refer to the tweets that were collected during each game, and *post-game tweets* will refer to the tweets collected after both games were completed Using this data, we seek to use sentiment analysis and text clustering to estimate the NFL team that is favored to win the Superbowl based on fans' analysis/comments/feelings. There are many aspects of sport games that cannot be captured by a box score such as a quarterback who can strategically mislead a defender to free up his receiver or a receiver who can look down-field and adjust his route accordingly. These are examples of nontraditional data points that currently cannot be accounted for in structured data. However, this can all be seen by coaches, scouts, fans, etc. and many of these analyses/observations can be found on social media platforms.
 
-**ADD SUMMARY OF FINDINGS HERE**
-
-By live streaming tweets containing particular tag words, we were able to collect 270,988 total tweets, which includes duplicate tweets. After removing duplicated tweets, the resulting number of tweets is 155,943.
 
 ### Data
 
@@ -417,6 +414,36 @@ for i in range(0, len(cluster_tweets)):
     
 ```
 
+## Summary of Results
+
+By live streaming tweets containing particular tag words, we were able to collect 270,988 total tweets combined between the *game tweets* and *postgame tweets*, which includes duplicate tweets. After removing duplicated tweets, the resulting total number of tweets is 155,943 combined between the *game tweets* and *postgame tweets*.
+
+The results from the *game tweets* data:
+
+|       | Full Dataset  | Game-Like Tweets|   Kansas City Tweets   | Tampa Bay Tweets |
+|  :---  |       :---:     |     :---:         |         :---:            |      :---:         |
+|   Number of Tweets    |    125,772  |      63,598     |       13,463     |       21,022    |
+|  Average Overall Sentiment |            |             |                  |             |
+|  Number of POS, NEUTRAL, NEG |            |              |                     |             |
+| Number of Clusters  |            |              |               NA   |         NA      |
+| Number of Outliers  |            |             |               NA   |         NA      |
+|  Silhouette Score |            |              |               NA   |         NA      |
+
+
+Refer to `Shrode_Practicum_GameTweets.ipynb` for more information.
+
+The results from the *postgame tweets* data:
+
+|       | Full Dataset  | Game-Like Tweets|   Kansas City Tweets   | Tampa Bay Tweets |
+|  :---  |       :---:     |     :---:         |         :---:            |      :---:         |
+|   Number of Tweets    |    125,772  |      63,598     |       13,463     |       21,022    |
+|  Average Overall Sentiment |            |             |                  |             |
+|  Number of POS, NEUTRAL, NEG |            |              |                     |             |
+| Number of Clusters  |            |              |               NA   |         NA      |
+| Number of Outliers  |            |             |               NA   |         NA      |
+|  Silhouette Score |            |              |               NA   |         NA      |
+
+Refer to `Shrode_Practicum_PostGameTweets.ipynb` for more information.
 
 ## For the Future
 
