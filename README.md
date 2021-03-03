@@ -8,7 +8,7 @@ For this project, we will be creating a pipeline that live stream tweets with pa
 
 ### Data
 
-The data will be collected by creating a pipeline to live stream tweets that contain tag words relate to each team playing in the NFL Conference Championship game. For example, during the Tampa Bay Buccaneers versus Green Bay Packers game, the following tag words were used to collect tweets:
+The data will be collected by creating a pipeline to live stream tweets that contain tag words that relate to each team playing in the NFL Conference Championship game. For example, during the Tampa Bay Buccaneers versus Green Bay Packers game, the following tag words were used to collect tweets:
 
   ```
   "Tom Brady", "Aaron Rodgers", "Buccaneers", "GoPackGo", "TBvsGB", "Green Bay Packers", "Tampa Bay Buccaneers", "Superbowl",  "Bucs", "Packers", "NFC Championship", "SuperbowlLV", "NFLPlayoffs"
@@ -161,11 +161,9 @@ Using the `pandas` module, we can load the MongoDB data into Python and store th
 
 ## Phase II - Sentiment Analysis
 
-Polarity - a measure of the negativity, the neutralness, or the positivity of the text
-
 ### Step 1: Clean Tweets
 
-The data collected for the game tweets and the post-game tweets were loaded into Jupyter Notebook directly from MongoDB, but can also be loaded from the `superbowl_2021_post_game_tweets.csv` and `superbowl_2021_game_tweets` files. To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
+The data collected for the game tweets and the post-game tweets were loaded into Jupyter Notebook directly from MongoDB, but can also be loaded from the `superbowl_2021_post_game_tweets.csv` and `superbowl_2021_game_tweets.csv` files. To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
 
 
 ```python
