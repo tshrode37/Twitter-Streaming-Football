@@ -444,7 +444,7 @@ Reviewing the table above, the average polarity score for the Kansas City tweets
   - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
   - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
 
-These finding suggest that fans favorites the Tampa Bay Buccaneers and the Kansas City Chiefs to play in the Superbowl, and wanted Tampa Bay to win. Refer to `Shrode_Practicum_GameTweets.ipynb` for more information.
+These finding suggest that fans favored the Tampa Bay Buccaneers and the Kansas City Chiefs to play in the Superbowl, and wanted Tampa Bay to win. Refer to `Shrode_Practicum_GameTweets.ipynb` for more information.
 
 The results from the *postgame tweets* data, excluding duplicated tweets:
 
@@ -475,7 +475,7 @@ Reviewing the table above, the average polarity score for the Kansas City tweets
   - The most frequent terms that arise for negative tweets include terms relating to the Tampa Bay Buccaneers
 
 
-These finding suggest that fans favorites the Tampa Bay Buccaneers and the Kansas City Chiefs to play in the Superbowl, and wanted Tampa Bay to win. Refer to `Shrode_Practicum_PostGameTweets.ipynb` for more information.
+These finding suggest that fans favored the Tampa Bay Buccaneers and the Kansas City Chiefs to play in the Superbowl, and wanted Tampa Bay to win. Refer to `Shrode_Practicum_PostGameTweets.ipynb` for more information.
 
 ## For the Future
 
