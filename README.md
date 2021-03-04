@@ -427,16 +427,16 @@ The results from the *game tweets* data, excluding duplicated tweets:
 | Number of Outliers  |    121135        |      63032       |               NA   |         NA      |
 |  Silhouette Score |      -0.257      |        -0.067      |               NA   |         NA      |
 
-Reviewing the table above, the average polarity score for the Kansas City tweets is greater than Tampa Bay, which suggests that fans favorited Kansas City to win the Superbowl. After further analysis of frequent occurring words for the positive and negative tweets in each of our subsets, we find:
+Reviewing the table above, the average polarity score for the Kansas City tweets is greater than Tampa Bay, which suggests that fans favored Kansas City to win the Superbowl. After further analysis of frequent occurring words for the positive and negative tweets in each of our subsets, we find:
 
 1. Full Dataset
   - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
   - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
-  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favored to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
 2. Game-Like Dataset
   - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
   - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
-  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favored to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
 3. Kansas City Dataset
   - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
   - The most frequent terms that arise for negative tweets include terms relating to the Green Bay Packers and the Buffalo Bills
@@ -457,16 +457,16 @@ The results from the *postgame tweets* data, excluding duplicated tweets:
 | Number of Outliers  |      29262      |     17428        |               NA   |         NA      |
 |  Silhouette Score |       -0.253     |         -0.041     |               NA   |         NA      |
 
-Reviewing the table above, the average polarity score for the Kansas City tweets is less than Tampa Bay, which suggests that fans favorited Tampa Bay to win the Superbowl. After further analysis of frequent occurring words for the positive and negative tweets in each of our subsets, we find:
+Reviewing the table above, the average polarity score for the Kansas City tweets is less than Tampa Bay, which suggests that fans favored Tampa Bay to win the Superbowl. After further analysis of frequent occurring words for the positive and negative tweets in each of our subsets, we find:
 
 1. Full Dataset
   - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers
   - The most frequent terms that arise for negative tweets include terms relating to the Tampa Bay Buccaneers
-  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favored to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
 2. Game-Like Dataset
   - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers and the Kansas City Chiefs
   - The most frequent terms that arise for negative tweets include terms relating to the Kansas City Chiefs
-  - Most of the DBSCAN clusters suggest that Tampa Bay is favorited to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
+  - Most of the DBSCAN clusters suggest that Tampa Bay is favored to win the Superbowl and that Kansas City and Tampa Bay will be playing in the Superbowl
 3. Kansas City Dataset
   - The most frequent terms that arise for positive tweets include terms relating to the Tampa Bay Buccaneers and the Kansas City Chiefs
   - The most frequent terms that arise for negative tweets include terms relating to the Kansas City Chiefs
