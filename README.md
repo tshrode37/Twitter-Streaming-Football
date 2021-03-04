@@ -163,7 +163,9 @@ Using the `pandas` module, we can load the MongoDB data into Python and store th
 
 ### Step 1: Clean Tweets
 
-The data collected for the game tweets and the post-game tweets were loaded into Jupyter Notebook directly from MongoDB, but can also be loaded from the `superbowl_2021_post_game_tweets.csv` and `superbowl_2021_game_tweets.csv` files. To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
+The data collected for the game tweets and the post-game tweets were loaded into Jupyter Notebook directly from MongoDB, but can also be loaded from the `superbowl_2021_post_game_tweets.csv` and `superbowl_2021_game_tweets.csv` files. The `superbowl_2021_game_tweets.csv` is can be located using the path: `OneDrive/Desktop/MSDS 692 Assignments & Readings/superbowl_2021_game_tweets.csv`
+
+To perform sentiment analysis on our football tweets, we need to apply a few basic text cleaning techniques such as removing emoji's, punctuation, weblinks, usernames, hashtags, extra whitespace, and any unnecessary characters. The function used to remove most of the emoji's in our tweets can be found below.
 
 
 ```python
